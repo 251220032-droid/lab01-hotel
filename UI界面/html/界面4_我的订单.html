@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>界面4 我的订单与支付</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:"Microsoft YaHei","PingFang SC",sans-serif; }
+  body { width:1600px; height:900px; overflow:hidden; background:#F5F7FA; }
+  .top { height:72px; background:#fff; display:flex; align-items:center; padding:0 40px; box-shadow:0 2px 10px rgba(0,0,0,.04); }
+  .logo { display:flex; align-items:center; gap:10px; font-size:22px; font-weight:700; color:#1668D1; }
+  .logo .mark { width:36px; height:36px; background:#1668D1; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+  .nav { display:flex; gap:38px; margin-left:70px; font-size:16px; color:#4B5563; }
+  .nav .on { color:#1668D1; font-weight:700; }
+  .top .right { margin-left:auto; display:flex; align-items:center; gap:24px; color:#6B7280; font-size:15px; }
+  .avatar { width:40px; height:40px; border-radius:50%; background:#EAF2FE; display:flex; align-items:center; justify-content:center; color:#1668D1; }
+
+  .tabs { display:flex; gap:10px; padding:26px 40px 0; }
+  .tab { padding:10px 26px; font-size:15px; color:#6B7280; background:#fff; border-radius:9px; }
+  .tab.on { background:#1668D1; color:#fff; font-weight:600; }
+
+  .orders { padding:22px 40px; display:flex; flex-direction:column; gap:18px; }
+  .order { background:#fff; border-radius:12px; padding:22px 26px; display:flex; box-shadow:0 4px 14px rgba(0,0,0,.04); }
+  .order.urgent { border:1.5px solid #F59E0B; }
+  .pic { width:170px; height:120px; border-radius:10px; background:linear-gradient(135deg,#BFD4F7,#8FB4EE); flex-shrink:0; }
+  .info { margin-left:24px; flex:1; }
+  .info h3 { font-size:19px; color:#1F2937; }
+  .info .m { font-size:14px; color:#6B7280; margin-top:10px; line-height:1.8; }
+  .badge { align-self:flex-start; font-size:13px; padding:5px 14px; border-radius:20px; }
+  .b-pay { color:#D97706; background:#FEF3E2; }
+  .b-ok { color:#16A34A; background:#E7F6EC; }
+  .b-done { color:#6B7280; background:#F1F3F5; }
+  .paycol { width:230px; display:flex; flex-direction:column; align-items:flex-end; }
+  .amt { font-size:22px; font-weight:700; color:#E23B3B; }
+  .count { width:100%; margin:14px 0; }
+  .count .cl { font-size:13px; color:#D97706; text-align:right; margin-bottom:7px; }
+  .bar { height:8px; background:#F1F3F5; border-radius:5px; overflow:hidden; }
+  .bar i { display:block; height:100%; width:62%; background:linear-gradient(90deg,#F59E0B,#F97316); border-radius:5px; }
+  .btns { display:flex; gap:10px; }
+  .pbtn { padding:11px 26px; border-radius:8px; font-size:15px; font-weight:600; border:none; }
+  .primary { background:#1668D1; color:#fff; }
+  .ghost { background:#fff; color:#6B7280; border:1.5px solid #E5E7EB; }
+  .plain { margin-top:14px; font-size:14px; color:#1668D1; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="logo"><span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-5 8 5v12h-5v-7H9v7H4z" fill="#fff"/></svg></span>云栖酒店</div>
+    <div class="nav"><span>首页</span><span>酒店</span><span class="on">我的订单</span></div>
+    <div class="right"><span>消息</span><div class="avatar">王</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on">全部</div><div class="tab">待支付</div><div class="tab">已确认</div><div class="tab">已取消</div><div class="tab">已完成</div>
+  </div>
+
+  <div class="orders">
+    <div class="order urgent">
+      <div class="pic"></div>
+      <div class="info">
+        <h3>高级大床房 · 仙林校区店</h3>
+        <div class="m">入住：2026-11-20　离店：2026-11-22（共 2 晚）<br>订单号：YQ20261111084732　下单时间：2026-11-11 16:42</div>
+      </div>
+      <div class="paycol">
+        <span class="badge b-pay">待支付</span>
+        <div class="count">
+          <div class="cl">请在 09:18 内完成支付</div>
+          <div class="bar"><i></i></div>
+        </div>
+        <div class="amt">¥656.00</div>
+        <div class="btns" style="margin-top:14px"><button class="pbtn primary">立即支付</button><button class="pbtn ghost">取消订单</button></div>
+      </div>
+    </div>
+
+    <div class="order">
+      <div class="pic" style="background:linear-gradient(135deg,#C9E4D6,#8FC7AC)"></div>
+      <div class="info">
+        <h3>豪华双床房 · 仙林校区店</h3>
+        <div class="m">入住：2026-11-25　离店：2026-11-26（共 1 晚）<br>订单号：YQ20261105112036　支付时间：2026-11-05 11:20</div>
+      </div>
+      <div class="paycol">
+        <span class="badge b-ok">已确认</span>
+        <div class="amt" style="color:#1F2937">¥368.00</div>
+        <div class="plain">查看订单详情</div>
+      </div>
+    </div>
+
+    <div class="order">
+      <div class="pic" style="background:linear-gradient(135deg,#F0D9C2,#E0B48C)"></div>
+      <div class="info">
+        <h3>商务行政套房 · 仙林校区店</h3>
+        <div class="m">入住：2026-10-15　离店：2026-10-17（共 2 晚）<br>订单号：YQ20261012093018　已核销退房</div>
+      </div>
+      <div class="paycol">
+        <span class="badge b-done">已完成</span>
+        <div class="amt" style="color:#1F2937">¥1,176.00</div>
+        <div class="plain">评价入住体验</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

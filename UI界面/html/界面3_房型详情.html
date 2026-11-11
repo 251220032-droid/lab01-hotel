@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>界面3 房型详情与预订</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:"Microsoft YaHei","PingFang SC",sans-serif; }
+  body { width:1600px; height:900px; overflow:hidden; background:#F5F7FA; }
+  .top { height:72px; background:#fff; display:flex; align-items:center; padding:0 40px; box-shadow:0 2px 10px rgba(0,0,0,.04); }
+  .logo { display:flex; align-items:center; gap:10px; font-size:22px; font-weight:700; color:#1668D1; }
+  .logo .mark { width:36px; height:36px; background:#1668D1; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+  .nav { display:flex; gap:38px; margin-left:70px; font-size:16px; color:#4B5563; }
+  .nav .on { color:#1668D1; font-weight:700; }
+  .top .right { margin-left:auto; display:flex; align-items:center; gap:24px; color:#6B7280; font-size:15px; }
+  .avatar { width:40px; height:40px; border-radius:50%; background:#EAF2FE; display:flex; align-items:center; justify-content:center; color:#1668D1; }
+
+  .crumb { padding:22px 40px 0; font-size:14px; color:#9CA3AF; }
+  .crumb b { color:#1F2937; }
+  .wrap { display:flex; gap:28px; padding:22px 40px; }
+  .left { width:760px; }
+  .big { height:430px; border-radius:12px; background:linear-gradient(135deg,#BFD4F7,#8FB4EE); display:flex; align-items:center; justify-content:center; }
+  .thumbs { display:flex; gap:14px; margin-top:14px; }
+  .th { width:178px; height:110px; border-radius:9px; background:linear-gradient(135deg,#D5E2F7,#A9C4EE); }
+  .th.act { outline:3px solid #1668D1; }
+
+  .right { flex:1; background:#fff; border-radius:12px; padding:30px 32px; }
+  .right h2 { font-size:26px; color:#1F2937; }
+  .rate { color:#F59E0B; font-size:15px; margin-top:10px; }
+  .rate span { color:#9CA3AF; }
+  .desc { font-size:14px; color:#6B7280; line-height:1.7; margin-top:14px; }
+  .specs { display:flex; gap:26px; margin-top:18px; font-size:14px; color:#374151; }
+  .fac { display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; }
+  .f { font-size:13px; color:#1668D1; background:#EAF2FE; border-radius:6px; padding:5px 12px; }
+
+  .date { display:flex; gap:14px; margin-top:22px; }
+  .dbox { flex:1; border:1.5px solid #E5E7EB; border-radius:9px; padding:12px 14px; }
+  .dbox .l { font-size:12px; color:#9CA3AF; }
+  .dbox .v { font-size:15px; font-weight:600; color:#1F2937; margin-top:5px; }
+  .qty { display:flex; align-items:center; gap:16px; margin-top:18px; font-size:14px; color:#374151; }
+  .stepper { display:flex; align-items:center; border:1.5px solid #E5E7EB; border-radius:8px; overflow:hidden; }
+  .stepper div { width:42px; height:38px; display:flex; align-items:center; justify-content:center; font-size:18px; color:#1668D1; }
+  .stepper .n { border-left:1.5px solid #E5E7EB; border-right:1.5px solid #E5E7EB; color:#1F2937; }
+
+  .amount { margin-top:22px; border-top:1px dashed #E5E7EB; padding-top:18px; }
+  .arow { display:flex; justify-content:space-between; font-size:14px; color:#6B7280; margin-bottom:10px; }
+  .arow.total { color:#E23B3B; font-size:22px; font-weight:700; margin-top:14px; }
+  .stock { font-size:13px; color:#E23B3B; margin-top:6px; }
+  .book { width:100%; height:52px; background:#1668D1; color:#fff; border:none; border-radius:9px; font-size:17px; font-weight:600; margin-top:18px; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="logo"><span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-5 8 5v12h-5v-7H9v7H4z" fill="#fff"/></svg></span>云栖酒店</div>
+    <div class="nav"><span>首页</span><span class="on">酒店</span><span>优惠活动</span><span>我的订单</span></div>
+    <div class="right"><span>消息</span><div class="avatar">王</div></div>
+  </div>
+
+  <div class="crumb">首页 / 仙林校区店 / <b>高级大床房</b></div>
+  <div class="wrap">
+    <div class="left">
+      <div class="big"><svg width="90" height="90" viewBox="0 0 24 24" fill="none"><path d="M3 18v-6l9-6 9 6v6h-4v-5H7v5H3z" fill="#fff" opacity=".85"/></svg></div>
+      <div class="thumbs"><div class="th act"></div><div class="th"></div><div class="th"></div><div class="th"></div></div>
+    </div>
+    <div class="right">
+      <h2>高级大床房</h2>
+      <div class="rate">★★★★★ 4.8 <span>（1,286 条评价）</span></div>
+      <div class="desc">宽敞明亮的 28 平方米客房，配备 1.8 米大床与全景落地窗，安静舒适，适合商务出行与休闲度假。</div>
+      <div class="specs"><span>床型：1.8m 大床</span><span>可住：2 人</span><span>面积：28㎡</span></div>
+      <div class="fac"><span class="f">免费WiFi</span><span class="f">含早餐</span><span class="f">独立空调</span><span class="f">智能电视</span><span class="f">免费取消</span></div>
+      <div class="date">
+        <div class="dbox"><div class="l">入住日期</div><div class="v">11月20日</div></div>
+        <div class="dbox"><div class="l">离店日期</div><div class="v">11月22日</div></div>
+      </div>
+      <div class="qty">房间数量
+        <div class="stepper"><div>−</div><div class="n">1</div><div>＋</div></div>
+      </div>
+      <div class="amount">
+        <div class="arow"><span>房费（2 晚）</span><span>¥656.00</span></div>
+        <div class="arow"><span>税费</span><span>¥0.00</span></div>
+        <div class="arow total"><span>合计</span><span>¥656.00</span></div>
+        <div class="stock">该房型当前仅剩 3 间，提交后将为您锁定库存</div>
+      </div>
+      <button class="book">立即预订</button>
+    </div>
+  </div>
+</body>
+</html>

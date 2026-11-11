@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>界面2 顾客首页</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:"Microsoft YaHei","PingFang SC",sans-serif; }
+  body { width:1600px; height:900px; overflow:hidden; background:#F5F7FA; }
+  .top { height:72px; background:#fff; display:flex; align-items:center; padding:0 40px; box-shadow:0 2px 10px rgba(0,0,0,.04); }
+  .logo { display:flex; align-items:center; gap:10px; font-size:22px; font-weight:700; color:#1668D1; }
+  .logo .mark { width:36px; height:36px; background:#1668D1; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+  .nav { display:flex; gap:38px; margin-left:70px; font-size:16px; color:#4B5563; }
+  .nav .on { color:#1668D1; font-weight:700; }
+  .top .right { margin-left:auto; display:flex; align-items:center; gap:24px; color:#6B7280; font-size:15px; }
+  .avatar { width:40px; height:40px; border-radius:50%; background:#EAF2FE; display:flex; align-items:center; justify-content:center; color:#1668D1; }
+
+  .hero { margin:28px 40px 0; background:linear-gradient(120deg,#1668D1,#3E8BE6); border-radius:14px; padding:34px 40px; }
+  .hero h2 { color:#fff; font-size:26px; }
+  .search { display:flex; gap:14px; margin-top:22px; background:#fff; border-radius:10px; padding:14px; align-items:center; }
+  .s-item { flex:1; }
+  .s-item .lab { font-size:13px; color:#9CA3AF; margin-bottom:6px; }
+  .s-item .val { font-size:16px; color:#1F2937; font-weight:600; }
+  .s-btn { height:52px; padding:0 40px; background:#1668D1; color:#fff; border:none; border-radius:9px; font-size:16px; font-weight:600; }
+
+  .sec-title { margin:26px 40px 16px; font-size:20px; font-weight:700; color:#1F2937; display:flex; align-items:center; }
+  .sec-title span { color:#9CA3AF; font-size:14px; font-weight:400; margin-left:14px; }
+  .list { display:flex; gap:24px; padding:0 40px; }
+  .room { flex:1; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,.05); }
+  .pic { height:170px; background:linear-gradient(135deg,#BFD4F7,#8FB4EE); display:flex; align-items:center; justify-content:center; }
+  .room .body { padding:18px 20px 22px; }
+  .room h3 { font-size:18px; color:#1F2937; }
+  .meta { font-size:13px; color:#9CA3AF; margin-top:8px; }
+  .tags { display:flex; gap:8px; margin-top:12px; }
+  .tag { font-size:12px; color:#1668D1; background:#EAF2FE; border-radius:5px; padding:3px 9px; }
+  .foot { display:flex; align-items:flex-end; margin-top:16px; }
+  .price { color:#E23B3B; font-size:24px; font-weight:700; }
+  .price small { font-size:13px; font-weight:400; }
+  .book { margin-left:auto; background:#1668D1; color:#fff; border:none; border-radius:8px; padding:10px 22px; font-size:14px; font-weight:600; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="logo"><span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-5 8 5v12h-5v-7H9v7H4z" fill="#fff"/></svg></span>云栖酒店</div>
+    <div class="nav"><span class="on">首页</span><span>酒店</span><span>优惠活动</span><span>我的订单</span></div>
+    <div class="right"><span>消息</span><div class="avatar">王</div></div>
+  </div>
+
+  <div class="hero">
+    <h2>查找并预订您心仪的房间</h2>
+    <div class="search">
+      <div class="s-item"><div class="lab">城市</div><div class="val">南京</div></div>
+      <div class="s-item"><div class="lab">入住日期</div><div class="val">11月20日</div></div>
+      <div class="s-item"><div class="lab">离店日期</div><div class="val">11月22日</div></div>
+      <div class="s-item"><div class="lab">房型</div><div class="val">不限</div></div>
+      <button class="s-btn">搜索房间</button>
+    </div>
+  </div>
+
+  <div class="sec-title">为您推荐<span>共找到 12 个可用房型</span></div>
+  <div class="list">
+    <div class="room">
+      <div class="pic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none"><path d="M3 18v-6l9-6 9 6v6h-4v-5H7v5H3z" fill="#fff" opacity=".8"/></svg></div>
+      <div class="body">
+        <h3>高级大床房</h3>
+        <div class="meta">仙林校区店 · 评分 4.8 · 仅剩 3 间</div>
+        <div class="tags"><span class="tag">含早</span><span class="tag">免费取消</span></div>
+        <div class="foot"><div class="price"><small>¥</small>328<small>/晚</small></div><button class="book">立即预订</button></div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="pic" style="background:linear-gradient(135deg,#C9E4D6,#8FC7AC)"><svg width="60" height="60" viewBox="0 0 24 24" fill="none"><path d="M3 18v-6l9-6 9 6v6h-4v-5H7v5H3z" fill="#fff" opacity=".8"/></svg></div>
+      <div class="body">
+        <h3>豪华双床房</h3>
+        <div class="meta">仙林校区店 · 评分 4.7 · 仅剩 5 间</div>
+        <div class="tags"><span class="tag">含双早</span><span class="tag">免费WiFi</span></div>
+        <div class="foot"><div class="price"><small>¥</small>368<small>/晚</small></div><button class="book">立即预订</button></div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="pic" style="background:linear-gradient(135deg,#F0D9C2,#E0B48C)"><svg width="60" height="60" viewBox="0 0 24 24" fill="none"><path d="M3 18v-6l9-6 9 6v6h-4v-5H7v5H3z" fill="#fff" opacity=".8"/></svg></div>
+      <div class="body">
+        <h3>商务行政套房</h3>
+        <div class="meta">仙林校区店 · 评分 4.9 · 仅剩 1 间</div>
+        <div class="tags"><span class="tag">行政酒廊</span><span class="tag">接送服务</span></div>
+        <div class="foot"><div class="price"><small>¥</small>588<small>/晚</small></div><button class="book">立即预订</button></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
