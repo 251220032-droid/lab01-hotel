@@ -1,0 +1,56 @@
+@startuml
+title UML用例图 - 酒店预订系统
+left to right direction
+skinparam packageStyle rectangle
+
+:顾客: as Customer
+:前台服务人员: as Receptionist
+:平台管理员: as Admin
+
+rectangle "酒店预订系统" {
+    usecase "注册登录" as UC1
+    usecase "多条件查询房型" as UC2
+    usecase "提交预订" as UC3
+    usecase "支付订单" as UC4
+    usecase "查看我的订单" as UC5
+    usecase "跨日库存校验" as UC6
+    usecase "锁定库存" as UC7
+    usecase "超时自动取消" as UC8
+    usecase "入住核销" as UC9
+    usecase "退房办理" as UC10
+    usecase "用户权限管理" as UC11
+    usecase "房型库存价格维护" as UC12
+    usecase "设置停售" as UC13
+    usecase "批量取消与退款" as UC14
+    usecase "经营报表统计" as UC15
+    usecase "异常日志处理" as UC16
+    usecase "原路退款" as UC17
+}
+
+' 顾客
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Customer --> UC5
+
+' 前台
+Receptionist --> UC1
+Receptionist --> UC5
+Receptionist --> UC9
+Receptionist --> UC10
+
+' 管理员
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+
+' 包含与扩展
+UC3 ..> UC6 : <<include>>
+UC3 ..> UC7 : <<include>>
+UC8 ..> UC3 : <<extend>>
+UC14 ..> UC17 : <<include>>
+@enduml

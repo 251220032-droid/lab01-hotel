@@ -1,0 +1,53 @@
+@startuml
+title UML组件图 - 酒店预订系统
+skinparam componentStyle rectangle
+left to right direction
+
+package "表示层（Web 前端）" #E8F4FD {
+    [顾客端界面] as CustomerUI
+    [管理后台界面] as AdminUI
+}
+
+package "业务逻辑层" #F4ECF7 {
+    [认证与权限组件] as Auth
+    [搜索查询组件] as Search
+    [房型库存组件] as Inventory
+    [预订订单组件] as Order
+    [支付组件] as Payment
+    [超时调度组件] as Timeout
+    [核销组件] as CheckIn
+    [报表统计组件] as Report
+    [通知组件] as Notify
+}
+
+database "业务数据库" as DB #EAF7EE
+cloud "第三方支付网关" as PayGateway
+cloud "短信网关" as SmsGateway
+
+' 前端到业务组件
+CustomerUI ..> Auth : HTTPS
+CustomerUI ..> Search
+CustomerUI ..> Order
+CustomerUI ..> Payment
+AdminUI ..> Auth
+AdminUI ..> Inventory
+AdminUI ..> CheckIn
+AdminUI ..> Report
+
+' 业务组件之间的依赖
+Search ..> Inventory
+Order ..> Inventory : 校验/锁定
+Order ..> Timeout : 15分钟计时
+Payment ..> PayGateway : 支付/退款
+CheckIn ..> Order : 核销
+Report ..> Order : 汇总
+Notify ..> SmsGateway : 短信
+Payment ..> Notify : 触发通知
+
+' 数据与外部依赖
+Auth ..> DB
+Search ..> DB
+Inventory ..> DB
+Order ..> DB
+Payment ..> DB
+@enduml

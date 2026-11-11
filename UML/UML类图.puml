@@ -1,0 +1,162 @@
+@startuml
+' 酒店预订系统核心类图，按模块分包
+title UML类图 - 酒店预订系统
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam packageStyle rectangle
+
+' ===== 1. 用户权限模块 =====
+package "用户权限模块" #E8F4FD {
+    abstract class User {
+        - userId : int
+        - username : String
+        - password : String
+        - phone : String
+        + login() : boolean
+        + register() : void
+        + logout() : void
+    }
+    class Customer {
+        + searchRoom() : List<RoomType>
+        + bookRoom() : Order
+        + payOrder() : void
+    }
+    class Receptionist {
+        + handleCheckIn() : void
+        + handleCheckOut() : void
+    }
+    class Admin {
+        + managePermission() : void
+        + viewReport() : Report
+    }
+    User <|-- Customer
+    User <|-- Receptionist
+    User <|-- Admin
+}
+
+' ===== 2. 酒店资源模块 =====
+package "酒店资源模块" #FDF2E9 {
+    class Hotel {
+        - hotelId : int
+        - name : String
+        - city : String
+        - address : String
+    }
+    class RoomType {
+        - roomTypeId : int
+        - name : String
+        - bedType : String
+        - maxGuests : int
+    }
+    class DailyInventory {
+        - date : Date
+        - availableCount : int
+        - price : double
+        - status : RoomStatus
+        + updateInventory() : void
+    }
+    enum RoomStatus {
+        ON_SALE
+        STOPPED
+    }
+    Hotel "1" o-- "1..*" RoomType : 包含
+    RoomType "1" o-- "1..*" DailyInventory : 每日房态
+    DailyInventory --> RoomStatus
+}
+
+' ===== 3. 订单支付模块 =====
+package "订单支付模块" #EAF7EE {
+    class Order {
+        - orderId : int
+        - checkInDate : Date
+        - checkOutDate : Date
+        - totalAmount : double
+        - status : OrderStatus
+        - createdAt : DateTime
+        - expireAt : DateTime
+        + cancel() : void
+    }
+    enum OrderStatus {
+        PENDING_PAYMENT
+        CONFIRMED
+        CANCELLED
+        COMPLETED
+    }
+    class Payment {
+        - paymentId : int
+        - amount : double
+        - method : String
+        - payStatus : String
+        - paidAt : DateTime
+        + refund() : void
+    }
+    Order --> OrderStatus
+    Order "1" -- "0..1" Payment : 支付
+}
+
+' ===== 4. 业务服务模块 =====
+package "业务服务模块" #F4ECF7 {
+    class AuthService {
+        + authenticate() : User
+        + checkPermission() : boolean
+    }
+    class InventoryService {
+        + checkDailyAvailability() : boolean
+        + lockInventory() : void
+        + releaseInventory() : void
+    }
+    class OrderService {
+        + createOrder() : Order
+        + cancelOrder() : void
+        + batchCancel() : void
+    }
+    class PaymentService {
+        + processPayment() : boolean
+        + refund() : void
+    }
+    class CheckInService {
+        + verifyCode() : boolean
+        + handleCheckIn() : void
+    }
+    class ReportService {
+        + getOccupancyRate() : double
+        + getRevenue() : double
+    }
+    class TimeoutScheduler {
+        + scheduleTimeout() : void
+        + autoCancel() : void
+    }
+}
+
+' ===== 5. 系统支撑模块 =====
+package "系统支撑模块" #FDEDEC {
+    class ConcurrencyLock {
+        + acquire() : boolean
+        + release() : void
+    }
+    class ExceptionLog {
+        - logId : int
+        - errorMessage : String
+        - context : String
+        - retryStatus : String
+    }
+    class NotificationService {
+        + sendSms() : void
+    }
+}
+
+' ===== 跨模块关联与依赖 =====
+Customer "1" -- "0..*" Order : 下单
+Order "0..*" -- "1" RoomType : 预订房型
+AuthService ..> User
+OrderService ..> Order : 生成
+OrderService ..> InventoryService : 调用
+InventoryService ..> DailyInventory : 读写
+InventoryService ..> ConcurrencyLock : 加锁
+PaymentService ..> Payment
+PaymentService ..> ExceptionLog : 记录
+OrderService ..> TimeoutScheduler : 调度
+CheckInService ..> Order : 核销
+ReportService ..> Order : 统计
+NotificationService ..> Order : 通知
+@enduml

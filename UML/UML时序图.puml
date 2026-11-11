@@ -1,0 +1,48 @@
+@startuml
+title UML时序图 - 预订下单交互
+actor 顾客 as C
+participant 订单服务 as OS
+participant 库存服务 as IS
+participant 并发锁 as L
+participant 超时调度 as TS
+participant 支付服务 as PS
+database 数据库 as DB
+
+C -> OS: 提交预订(房型, 入住/离店日期)
+activate OS
+OS -> IS: 校验跨日库存
+activate IS
+IS -> DB: 查询每日库存
+activate DB
+DB --> IS: 返回每日库存数据
+deactivate DB
+IS -> L: 获取并发锁
+activate L
+L --> IS: 加锁成功
+deactivate L
+IS -> DB: 锁定并扣减库存
+activate DB
+DB --> IS: 扣减成功
+deactivate DB
+IS --> OS: 库存锁定成功
+deactivate IS
+OS -> DB: 生成待支付订单
+activate DB
+DB --> OS: 订单已保存
+deactivate DB
+OS -> TS: 启动15分钟超时任务
+activate TS
+TS --> OS: 已调度
+deactivate TS
+OS --> C: 返回待支付订单
+deactivate OS
+
+C -> PS: 发起支付
+activate PS
+PS -> DB: 更新订单为已确认
+activate DB
+DB --> PS: 更新成功
+deactivate DB
+PS --> C: 支付成功
+deactivate PS
+@enduml
