@@ -63,7 +63,7 @@
 </ul>
 
 <h2>3. 功能模块划分</h2>
-<p>依据高内聚、低耦合原则，将系统划分为以下五个功能模块，完整覆盖实验一需求分析报告中的全部基本要求模块：</p>
+<p>依据高内聚、低耦合原则，将系统划分为五个业务功能模块与一个系统支撑模块（共六个模块），完整覆盖实验一需求分析报告中的全部基本要求模块：</p>
 <table class="data">
   <tr><th style="width:24%">模块</th><th>职责</th><th style="width:22%">主要需求</th></tr>
   <tr><td>用户权限模块</td><td>三类用户的注册、登录、身份鉴权与权限分配</td><td>REQ-001、REQ-014</td></tr>
@@ -71,6 +71,7 @@
   <tr><td>搜索查询模块</td><td>多条件检索房型与实时价格、空结果处理</td><td>REQ-003、REQ-013</td></tr>
   <tr><td>订单支付模块</td><td>跨日校验、下单锁库存、支付、超时释放、批量退款</td><td>REQ-004~REQ-008、REQ-010、REQ-011</td></tr>
   <tr><td>核销与报表模块</td><td>前台核销退房、经营数据统计与异常日志</td><td>REQ-009、REQ-012</td></tr>
+  <tr><td>系统支撑模块</td><td>并发锁、异常日志、短信通知、数据库每日定时备份与故障告警</td><td>REQ-015</td></tr>
 </table>
 
 <div class="pb"></div>
@@ -82,12 +83,13 @@
   <img src="UML/UML类图.png">
   <figcaption>图 2-1　UML 类图（必画）</figcaption>
 </figure>
-<p>类图以五个包对应五个功能模块，描述系统的核心类及其属性、方法与关系。设计要点：</p>
+<p>类图以五个包组织系统的核心类，描述其属性、方法与关系，并与上述功能模块相互呼应。设计要点：</p>
 <ul>
   <li><strong>继承关系：</strong>抽象类 User 泛化出 Customer、Receptionist、Admin 三个子类，复用登录、注册等公共属性与方法，再各自扩展角色专属行为；</li>
   <li><strong>聚合关系：</strong>Hotel 聚合 RoomType，RoomType 聚合 DailyInventory，表达“酒店—房型—每日房态”的整体与部分关系；</li>
   <li><strong>关联关系：</strong>Customer 与 Order、Order 与 RoomType、Order 与 Payment 之间建立关联，保证订单准确关联买家、房型与支付记录；</li>
   <li><strong>依赖关系：</strong>OrderService 依赖 InventoryService 与 TimeoutScheduler，InventoryService 依赖 ConcurrencyLock 与 DailyInventory，PaymentService 依赖 ExceptionLog，体现业务编排与并发、异常处理的协作。</li>
+  <li><strong>系统支撑：</strong>系统支撑模块中的 BackupService 负责数据库每日定时备份、备份校验与失败告警，备份失败时通过 ExceptionLog 记录，落实 REQ-015 的数据可靠性约束。</li>
 </ul>
 
 <h2>2. 结构性图（二）：组件图</h2>

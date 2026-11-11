@@ -143,6 +143,11 @@ package "系统支撑模块" #FDEDEC {
     class NotificationService {
         + sendSms() : void
     }
+    class BackupService {
+        + runDailyBackup() : void
+        + verifyBackup() : boolean
+        + alertOnFailure() : void
+    }
 }
 
 ' ===== 跨模块关联与依赖 =====
@@ -159,4 +164,5 @@ OrderService ..> TimeoutScheduler : 调度
 CheckInService ..> Order : 核销
 ReportService ..> Order : 统计
 NotificationService ..> Order : 通知
+BackupService ..> ExceptionLog : 备份失败告警
 @enduml
