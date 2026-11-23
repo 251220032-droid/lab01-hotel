@@ -1,0 +1,22 @@
+[MAIN]
+# 仅检查应用包与入口，不检查临时数据目录。
+ignore=data,.pytest_cache,__pycache__
+
+[DESIGN]
+# tkinter 控件继承链天然较深（ttk.Frame 等），放宽父类数量限制。
+max-parents=10
+# GUI 视图与应用上下文需要持有较多控件/服务引用。
+max-attributes=13
+# 演示数据初始化方法涉及较多局部变量。
+max-locals=22
+max-args=11
+# 数据模型实体（Order、RoomType 等）需要通过构造函数接收全部属性。
+max-positional-arguments=11
+
+[FORMAT]
+max-line-length=100
+indent-string='    '
+
+[MESSAGES CONTROL]
+# 允许在 GUI 回调中使用的短名与常见循环变量。
+good-names=i,j,k,ex,_,f,rt
