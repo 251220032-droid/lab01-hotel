@@ -55,6 +55,23 @@ class Database:
                 cls.from_dict(item) for item in payload.get(name, [])
             ]
         self._sequences = payload.get("sequences", {})
+        self._relate_inventories()
+
+    def _relate_inventories(self) -> None:
+        """把每日房态重新挂回所属房型，重建内存聚合关系。
+
+        持久化时房型与房态是分开存储的，加载后需要恢复
+        ``RoomType -> DailyInventory`` 的聚合，否则按日期查询
+        房态会返回 None。
+        """
+        room_types = {
+            room_type.room_type_id: room_type
+            for room_type in self._collections["room_types"]
+        }
+        for inventory in self._collections["inventories"]:
+            room_type = room_types.get(inventory.room_type_id)
+            if room_type is not None:
+                room_type.add_inventory(inventory)
 
     @staticmethod
     def _load_user(item: dict):
