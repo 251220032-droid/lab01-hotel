@@ -4,6 +4,10 @@ __pycache__/
 *.db
 *.sqlite
 *.log
+# 匹配根目录及任意子目录（如 code/data/runtime）下的运行时数据。
 data/runtime/
+**/data/runtime/
 .coverage
 htmlcov/
+# 本地写报告用的工作素材，不进入代码仓库与提交包。
+报告素材/
